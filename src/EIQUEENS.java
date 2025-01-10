@@ -3,40 +3,22 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class EIMIN {
+public class EIQUEENS {
 
     static InputReader sc = new InputReader(System.in);
     static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) {
 
-        int n = sc.nextInt();
-        int k = sc.nextInt();
+        boolean[][] arr = new boolean[8][8];
 
-        boolean flag = true;
-
-        int[] arr = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            arr[i] = sc.nextInt();
-        }
-
-        Arrays.sort(arr);
-
-        for (int i = 0; i < k; i++) {
-            if (arr[i] != 0) {
-                sb.append(arr[i]).append("\n");
-                flag = false;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                arr[i][j] = false;
             }
         }
-        if (flag = true) {
-            System.out.println(0);
-        }
-
-        System.out.print(sb.toString());
     }
 
     static class InputReader {

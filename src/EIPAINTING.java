@@ -3,40 +3,31 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.StringTokenizer;
 
-public class EIMIN {
+public class EIPAINTING {
 
     static InputReader sc = new InputReader(System.in);
     static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) {
-
         int n = sc.nextInt();
-        int k = sc.nextInt();
 
-        boolean flag = true;
-
-        int[] arr = new int[n];
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
 
         for (int i = 0; i < n; i++) {
-            arr[i] = sc.nextInt();
+            String s = sc.next();
+            map.put(s, map.getOrDefault(s, 0) + 1);
         }
 
-        Arrays.sort(arr);
+        int max = 0;
 
-        for (int i = 0; i < k; i++) {
-            if (arr[i] != 0) {
-                sb.append(arr[i]).append("\n");
-                flag = false;
-            }
-        }
-        if (flag = true) {
-            System.out.println(0);
+        for (int value : map.values()) {
+            max = Math.max(max, value);
         }
 
-        System.out.print(sb.toString());
+        System.out.println(n-max);
     }
 
     static class InputReader {

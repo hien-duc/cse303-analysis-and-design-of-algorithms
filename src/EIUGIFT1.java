@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class EIMIN {
+public class EIUGIFT1 {
 
     static InputReader sc = new InputReader(System.in);
     static StringBuilder sb = new StringBuilder();
@@ -16,27 +16,41 @@ public class EIMIN {
         int n = sc.nextInt();
         int k = sc.nextInt();
 
-        boolean flag = true;
-
-        int[] arr = new int[n];
+        double[] arrGift = new double[n];
+        double[] arrWrapper = new double[k];
 
         for (int i = 0; i < n; i++) {
-            arr[i] = sc.nextInt();
+            arrGift[i] = sc.nextDouble();
         }
-
-        Arrays.sort(arr);
 
         for (int i = 0; i < k; i++) {
-            if (arr[i] != 0) {
-                sb.append(arr[i]).append("\n");
-                flag = false;
-            }
-        }
-        if (flag = true) {
-            System.out.println(0);
+            arrWrapper[i] = sc.nextDouble();
         }
 
-        System.out.print(sb.toString());
+        Arrays.sort(arrGift);
+        Arrays.sort(arrWrapper);
+
+        int i = 0;
+        int j = 0;
+        int res = 0;
+
+        while (j < arrWrapper.length && i < arrGift.length) {
+            double rate = arrWrapper[j] / arrGift[i];
+            if (2 <= rate && rate <= 3) {
+                res++;
+                i++;
+                j++;
+            } else {
+                if (rate > 3) {
+                    i++;
+                }
+                if (rate < 2) {
+                    j++;
+                }
+            }
+        }
+
+        System.out.print(res);
     }
 
     static class InputReader {
