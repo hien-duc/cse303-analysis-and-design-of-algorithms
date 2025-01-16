@@ -1,56 +1,56 @@
+package Week1;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.StringTokenizer;
 
-public class EIUGIFT1 {
+public class EIPAGES {
 
-    static InputReader sc = new InputReader(System.in);
-    static StringBuilder sb = new StringBuilder();
+    static InputReader scanner = new InputReader(System.in);
 
     public static void main(String[] args) {
-
-        int n = sc.nextInt();
-        int k = sc.nextInt();
-
-        double[] arrGift = new double[n];
-        double[] arrWrapper = new double[k];
-
+        int n = scanner.nextInt();
+        List<Integer> pages = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            arrGift[i] = sc.nextDouble();
+            pages.add(scanner.nextInt());
         }
+        System.out.println(shortenPageNumbers(pages));
+    }
 
-        for (int i = 0; i < k; i++) {
-            arrWrapper[i] = sc.nextDouble();
-        }
+    public static String shortenPageNumbers(List<Integer> pages) {
+        if (pages.isEmpty())
+            return "";
 
-        Arrays.sort(arrGift);
-        Arrays.sort(arrWrapper);
+        Collections.sort(pages);
 
-        int i = 0;
-        int j = 0;
-        int res = 0;
+        StringBuilder result = new StringBuilder();
 
-        while (j < arrWrapper.length && i < arrGift.length) {
-            double rate = arrWrapper[j] / arrGift[i];
-            if (2 <= rate && rate <= 3) {
-                res++;
+        for (int i = 0; i < pages.size(); i++) {
+            int start = pages.get(i);
+            
+            while (i + 1 < pages.size() && pages.get(i + 1) == pages.get(i) + 1) {
                 i++;
-                j++;
+            }
+
+            if (result.length() > 0)
+                result.append(" ");
+
+            if (start == pages.get(i)) {
+                result.append(start);
+            } else if (start == pages.get(i) - 1) {
+                result.append(start).append(" ").append(pages.get(i));
             } else {
-                if (rate > 3) {
-                    i++;
-                }
-                if (rate < 2) {
-                    j++;
-                }
+                result.append(start).append("-").append(pages.get(i));
             }
         }
 
-        System.out.print(res);
+        return result.toString();
     }
 
     static class InputReader {
@@ -100,4 +100,5 @@ public class EIUGIFT1 {
             return Long.parseLong(next());
         }
     }
+
 }

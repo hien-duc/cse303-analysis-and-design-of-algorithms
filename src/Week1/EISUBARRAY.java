@@ -1,43 +1,70 @@
+package Week1;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class EIMIN {
+public class EISUBARRAY {
 
     static InputReader sc = new InputReader(System.in);
     static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) {
-
         int n = sc.nextInt();
-        int k = sc.nextInt();
-
-        boolean flag = true;
 
         int[] arr = new int[n];
-
         for (int i = 0; i < n; i++) {
             arr[i] = sc.nextInt();
         }
-
-        Arrays.sort(arr);
-
-        for (int i = 0; i < k; i++) {
-            if (arr[i] != 0) {
-                sb.append(arr[i]).append("\n");
-                flag = false;
-            }
-        }
-        if (flag = true) {
-            System.out.println(0);
-        }
-
-        System.out.print(sb.toString());
+        int maxSum = kadane(arr);
+        System.out.println(maxSum);
     }
+
+    static int kadane(int[] arr) {
+        int posSum = 0;
+        int negSum = 0;
+        int resPos = 0;
+        int resNeg = 0;
+        int res = 0;
+        for (int i = 0; i < arr.length; i++) {
+            int num = arr[i];
+
+            posSum += num;
+            resPos = Math.max(res, posSum);
+            negSum += num;
+            resNeg = Math.min(res, negSum);
+
+            if (posSum < 0) {
+                posSum = 0;
+            }
+
+            if (negSum > 0) {
+                negSum = 0;
+            }
+            resNeg = Math.abs(resNeg);
+            res = Math.max(resNeg, resPos);
+        }
+        return res;
+    }
+
+    // static int findSubarray(int[] arr, int start, int end) {
+    // int n = arr.length;
+    // int[] preSum = new int[n + 1];
+    // preSum[0] = 0;
+    // for (int i = 1; i <= n; i++) {
+    // preSum[i] = preSum[i - 1] + arr[i - 1];
+    // }
+    // int maxSum = Integer.MIN_VALUE;
+    // for (int i = start; i <= end; i++) {
+    // for (int j = i; j <= end; j++) {
+    // int sum = preSum[j + 1] - preSum[i];
+    // maxSum = Math.max(maxSum, sum);
+    // }
+    // }
+    // return maxSum;
+    // }
 
     static class InputReader {
         StringTokenizer tokenizer;
