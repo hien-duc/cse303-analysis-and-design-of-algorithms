@@ -1,25 +1,63 @@
 package Week1;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class EIQUEENS {
 
-    static InputReader sc = new InputReader(System.in);
+    static InputReader scanner = new InputReader(System.in);
     static StringBuilder sb = new StringBuilder();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        boolean[][] arr = new boolean[8][8];
+        char[][] board = new char[8][8];
+        List<int[]> queens = new ArrayList<>();
 
         for (int i = 0; i < 8; i++) {
+            String line = scanner.nextLine();
+            board[i] = line.toCharArray();
+
             for (int j = 0; j < 8; j++) {
-                arr[i][j] = false;
+                if (board[i][j] == '*') {
+                    queens.add(new int[] { i, j });
+                }
             }
         }
+
+        if (queens.size() != 8) {
+            System.out.println("invalid");
+            return;
+        }
+
+        if (isValid(queens)) {
+            System.out.println("valid");
+        } else {
+            System.out.println("invalid");
+        }
+    }
+
+    private static boolean isValid(List<int[]> queens) {
+        for (int i = 0; i < queens.size(); i++) {
+            for (int j = i + 1; j < queens.size(); j++) {
+                int[] queen1 = queens.get(i);
+                int[] queen2 = queens.get(j);
+
+                if (queen1[0] == queen2[0] || queen1[1] == queen2[1]) {
+                    return false;
+                }
+
+                if (Math.abs(queen1[0] - queen2[0]) == Math.abs(queen1[1] - queen2[1])) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     static class InputReader {
