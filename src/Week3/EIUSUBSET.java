@@ -13,43 +13,31 @@ public class EIUSUBSET {
     static InputReader sc = new InputReader(System.in);
     static StringBuilder sb = new StringBuilder();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
         int n = sc.nextInt();
-        ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
-        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+
+        String arr[] = new String[n];
 
         for (int i = 0; i < n; i++) {
-            int temp = sc.nextInt();
-            ArrayList<Integer> tempList = new ArrayList<>();
-            tempList.add(temp);
-            list.add(tempList);
+            arr[i] = sc.next();
         }
 
+        ArrayList<String> answer = new ArrayList<String>();
+        answer.add("");
         for (int i = n - 1; i >= 0; i--) {
-            int size = result.size();
-            ArrayList<Integer> single = new ArrayList<>();
-            single.addAll(list.get(i));
-            result.add(single);
-
-            for (int j = 0; j < size; j++) {
-                ArrayList<Integer> newList = new ArrayList<>();
-                newList.addAll(result.get(j));
-                newList.addAll(list.get(i));
-                result.add(newList);
+            String letter = arr[i];
+            int count = answer.size();
+            for (int j = 0; j < count; j++) {
+                answer.add(letter + " " + answer.get(j));
             }
         }
+        sb.append(answer.size() - 1);
 
-        System.out.println(result.size());
-
-        for (ArrayList<Integer> subset : result) {
-            for (int i = 0; i < subset.size(); i++) {
-                System.out.print(subset.get(i));
-                if (i < subset.size() - 1) {
-                    System.out.print(" ");
-                }
-            }
-            System.out.println();
+        for (String res : answer) {
+            sb.append(res).append("\n");
         }
+        System.out.print(sb.toString());
     }
 
     static class InputReader {
