@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
 public class EIEQUALS {
@@ -21,16 +23,45 @@ public class EIEQUALS {
 
         for (int i = 0; i < n; i++) {
             int number = sc.nextInt();
-            map.put(number, map.getOrDefault(map, 0) + 1);
+            map.put(number, map.getOrDefault(number, 0) + 1);
         }
 
         for (int i = 0; i < n; i++) {
             int number = sc.nextInt();
-            map.put(number, map.getOrDefault(map, 0) - 1);
+            map.put(number, map.getOrDefault(number, 0) - 1);
             if (map.get(number) == 0) {
                 map.remove(number);
             }
         }
+
+        if (map.size() == 0) {
+            System.out.println("YES");
+            return;
+        }
+
+        if (map.size() != 2) {
+            System.out.println("NO");
+            return;
+        }
+
+        Iterator<Entry<Integer, Integer>> i = map.entrySet().iterator();
+        Entry<Integer, Integer> first = i.next();
+        Entry<Integer, Integer> second = i.next();
+
+        int firstKey = first.getKey();
+        int secondKey = second.getKey();
+
+        int firstValue = first.getValue();
+        int secondValue = second.getValue();
+
+        if (firstValue == 1 && secondValue == -1 || firstValue == -1 && secondValue == 1) {
+            if (Math.abs(firstKey - secondKey) <= k) {
+                System.out.println("YES");
+                return;
+            }
+        }
+        
+        System.out.println("NO");
 
     }
 
