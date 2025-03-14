@@ -1,56 +1,44 @@
-package Week2;
+package Week3;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
+import java.util.TreeSet;
 
-public class EIUGIFTS {
-    static InputReader sc = new InputReader(System.in);
+public class EIUQBHV2 {
     static StringBuilder sb = new StringBuilder();
+    static InputReader sc = new InputReader(System.in);
 
-    public static void main(String[] args) {
-        int n = sc.nextInt();
-        long maxPrice = sc.nextLong();
+    public static void main(String[] args) throws IOException {
+        String str = sc.next();
 
-        int[] arrOfGift = new int[n];
+        char[] letter = str.toCharArray();
 
-        for (int i = 0; i < n; i++) {
-            arrOfGift[i] = sc.nextInt();
-        }
-        Arrays.sort(arrOfGift);
-        int minDiff = Integer.MAX_VALUE;
-        int maxSum = 0;
-        int right = n - 1;
-        int left = 0;
-        int count = 0;
+        TreeSet<String> list = new TreeSet<String>();
 
-        while (left < right) {
-            if (arrOfGift[left] + arrOfGift[right] <= maxPrice) {
-                if (maxSum < arrOfGift[left] + arrOfGift[right]) {
-                    maxSum = arrOfGift[left] + arrOfGift[right];
-                    minDiff = Math.abs(arrOfGift[left] - arrOfGift[right]);
-                } else if (maxSum == arrOfGift[left] + arrOfGift[right]
-                        && minDiff > Math.abs(arrOfGift[left] - arrOfGift[right])) {
-                    minDiff = Math.abs(arrOfGift[left] - arrOfGift[right]);
+        list.add("");
+
+        for (int i = 0; i < letter.length; i++) {
+            char c = letter[i];
+
+            TreeSet<String> temp = new TreeSet<String>();
+
+            for (String ans : list) {
+                int size = ans.length();
+                for (int j = 0; j <= size; j++) {
+                    String newAns = ans.substring(0, j) + c + ans.substring(j);
+                    temp.add(newAns);
+
                 }
-                // if (arrOfGift[left] + arrOfGift[right] == maxPrice) {
-                //     right--;
-                // }
-                left++;
-                count++;
-            } else {
-                right--;
             }
+            list = temp;
         }
 
-        if (count == 0) {
-            System.out.println("-1 -1");
-        } else {
-            System.out.println(maxSum + " " + minDiff);
+        for (String ans : list) {
+            System.out.print(ans + "\n");
         }
     }
 

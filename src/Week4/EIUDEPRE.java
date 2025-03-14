@@ -1,78 +1,42 @@
-package Week2;
+package Week4;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class EI2122Q1ADAM2 {
-    static int res  = Integer.MAX_VALUE;
-
-
+public class EIUDEPRE {
     public static void main(String[] args) {
         InputReader sc = new InputReader(System.in);
+        double start = 0;
+        double end = 1;
+        double n = sc.nextDouble();
+        double origialPrice = sc.nextDouble();
+        double residual = sc.nextDouble();
+        double res = 0;
 
-        int n = sc.nextInt();
-        int m = sc.nextInt();
-        int x = sc.nextInt();
+        while (end - start > Math.pow(10, -7)) {
+            double mid = (start + end) / 2;
+            double price = calculate(mid, n, origialPrice);
+            if (price > residual) {
+                start = mid;
+            } else {
+                end = mid;
+            }
+            res = mid;
+        }
+        System.out.print(res);
+    }
 
-        int[] men = new int[n];
+    public static double calculate(double mid, double n, double origialPrice) {
+        double res = origialPrice;
         for (int i = 0; i < n; i++) {
-            men[i] = sc.nextInt();
+            double rate = mid - mid * i / n;
+            res *= (1 - rate);
         }
-
-        int[] women = new int[m];
-        for (int i = 0; i < m; i++) {
-            women[i] = sc.nextInt();
-        }
-        findMinimumDifference(n, x, men, women);
-
-        System.out.println(res);
-
-    }
-
-    public static void findMinimumDifference(int n, int x, int[] men, int[] women) {
-        Arrays.sort(men);
-        Arrays.sort(women);
-
-        int left = 0;
-        int right = Math.max(Math.abs(men[n - 1] - women[0]), women[n - 1] - men[0]);
-
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (canMatch(men, women, x, mid)) {
-                right = mid - 1;
-                res = Math.min(res, mid);
-            } else {
-                left = mid + 1;
-            }
-        }
-
-    }
-
-    private static boolean canMatch(int[] men, int[] women, int X, int maxDiff) {
-        int n = men.length;
-        int m = women.length;
-        int pairs = 0;
-        int i = 0;
-        int j = 0;
-
-        while (i < n && j < m) {
-            if (Math.abs(men[i] - women[j]) <= maxDiff) {
-                pairs++;
-                i++;
-                j++;
-            } else if (men[i] > women[j]) {
-                j++;
-            } else {
-                i++;
-            }
-        }
-
-        return pairs >= X;
+        return res;
     }
 
     static class InputReader {
@@ -122,4 +86,5 @@ public class EI2122Q1ADAM2 {
             return Long.parseLong(next());
         }
     }
+
 }

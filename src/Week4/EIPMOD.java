@@ -1,78 +1,33 @@
-package Week2;
+package Week4;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class EI2122Q1ADAM2 {
-    static int res  = Integer.MAX_VALUE;
-
-
+public class EIPMOD {
     public static void main(String[] args) {
         InputReader sc = new InputReader(System.in);
-
-        int n = sc.nextInt();
-        int m = sc.nextInt();
-        int x = sc.nextInt();
-
-        int[] men = new int[n];
-        for (int i = 0; i < n; i++) {
-            men[i] = sc.nextInt();
-        }
-
-        int[] women = new int[m];
-        for (int i = 0; i < m; i++) {
-            women[i] = sc.nextInt();
-        }
-        findMinimumDifference(n, x, men, women);
-
-        System.out.println(res);
-
+        long x = sc.nextLong();
+        long n = sc.nextLong();
+        long k = sc.nextLong();
+        System.out.println(powerMod(x, n, k));
     }
 
-    public static void findMinimumDifference(int n, int x, int[] men, int[] women) {
-        Arrays.sort(men);
-        Arrays.sort(women);
-
-        int left = 0;
-        int right = Math.max(Math.abs(men[n - 1] - women[0]), women[n - 1] - men[0]);
-
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (canMatch(men, women, x, mid)) {
-                right = mid - 1;
-                res = Math.min(res, mid);
-            } else {
-                left = mid + 1;
+    public static long powerMod(long x, long n, long k) {
+        long res = 1;
+        x = x % k;
+        while (n > 0) {
+            if (n % 2 == 1) {
+                res = (res * x) % k;
             }
+
+            n = n / 2;
+            x = (x * x) % k;
         }
-
-    }
-
-    private static boolean canMatch(int[] men, int[] women, int X, int maxDiff) {
-        int n = men.length;
-        int m = women.length;
-        int pairs = 0;
-        int i = 0;
-        int j = 0;
-
-        while (i < n && j < m) {
-            if (Math.abs(men[i] - women[j]) <= maxDiff) {
-                pairs++;
-                i++;
-                j++;
-            } else if (men[i] > women[j]) {
-                j++;
-            } else {
-                i++;
-            }
-        }
-
-        return pairs >= X;
+        return res;
     }
 
     static class InputReader {
@@ -122,4 +77,5 @@ public class EI2122Q1ADAM2 {
             return Long.parseLong(next());
         }
     }
+
 }

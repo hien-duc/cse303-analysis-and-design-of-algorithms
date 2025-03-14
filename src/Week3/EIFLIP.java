@@ -9,43 +9,41 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class EIFLIP {
-    static int[][] directions = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
-    static StringBuilder sb = new StringBuilder();
-
     public static void main(String[] args) throws IOException {
         InputReader sc = new InputReader(System.in);
-        int t = sc.nextInt();
-        sc.nextLine();
+        StringBuilder sb = new StringBuilder();
+        int testCases = sc.nextInt();
 
-        while (t-- > 0) {
+        for (int t = 0; t < testCases; t++) {
+            // Read the target grid
             char[][] target = new char[3][3];
             for (int i = 0; i < 3; i++) {
-                target[i] = sc.next().toCharArray();
+                target[i] = sc.nextLine().toCharArray();
             }
-            sb.append((solve(target))).append("\n");
+
+            // Find minimum clicks needed
+            int res = findMinClicks(target);
+            sb.append(res).append("\n");
         }
         System.out.println(sb);
     }
 
-    static int solve(char[][] target) {
+    static int findMinClicks(char[][] target) {
         int minClicks = Integer.MAX_VALUE;
-        for (int mask = 0; mask < (1 << 9); mask++) {
+
+        // Try all possible combinations of clicks
+        for (int mask = 0; mask < 512; mask++) { // 512 = 2^9 (all possible combinations)
+            // Create initial white grid
             char[][] grid = new char[3][3];
             for (int i = 0; i < 3; i++) {
                 Arrays.fill(grid[i], '.');
             }
 
-            int clicks = 0;
-            for (int pos = 0; pos < 9; pos++) {
-                if ((mask & (1 << pos)) != 0) {
-                    clicks++;
-                    int row = pos / 3;
-                    int col = pos % 3;
-                    flipCells(grid, row, col);
-                }
-            }
+            // Count clicks and apply them
+            int clicks = countAndApplyClicks(grid, mask);
 
-            if (matches(grid, target)) {
+            // If this combination matches target, update minimum clicks
+            if (isMatch(grid, target)) {
                 minClicks = Math.min(minClicks, clicks);
             }
         }
@@ -53,28 +51,44 @@ public class EIFLIP {
         return minClicks == Integer.MAX_VALUE ? -1 : minClicks;
     }
 
-    static void flipCells(char[][] grid, int row, int col) {
-        grid[row][col] = flip(grid[row][col]);
+    static int countAndApplyClicks(char[][] grid, int mask) {
+        int clicks = 0;
+        for (int position = 0; position < 9; position++) {
+            if ((mask & (1 << position)) != 0) {
+                clicks++;
+                int row = position / 3;
+                int col = position % 3;
+                flipCell(grid, row, col);
+            }
+        }
+        return clicks;
+    }
 
+    static void flipCell(char[][] grid, int row, int col) {
+        // Flip the clicked cell
+        flip(grid, row, col);
+
+        // Flip adjacent cells
+        int[][] directions = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } }; // right, down, left, up
         for (int[] dir : directions) {
             int newRow = row + dir[0];
             int newCol = col + dir[1];
 
-            if (isValid(newRow, newCol)) {
-                grid[newRow][newCol] = flip(grid[newRow][newCol]);
+            if (isValidPosition(newRow, newCol)) {
+                flip(grid, newRow, newCol);
             }
         }
     }
 
-    static char flip(char c) {
-        return c == '.' ? '*' : '.';
+    static void flip(char[][] grid, int row, int col) {
+        grid[row][col] = (grid[row][col] == '.') ? '*' : '.';
     }
 
-    static boolean isValid(int row, int col) {
+    static boolean isValidPosition(int row, int col) {
         return row >= 0 && row < 3 && col >= 0 && col < 3;
     }
 
-    static boolean matches(char[][] grid, char[][] target) {
+    static boolean isMatch(char[][] grid, char[][] target) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (grid[i][j] != target[i][j]) {

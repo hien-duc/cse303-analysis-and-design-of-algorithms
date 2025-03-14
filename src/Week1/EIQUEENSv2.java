@@ -1,57 +1,64 @@
-package Week2;
+package Week1;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
-public class EIUGIFTS {
-    static InputReader sc = new InputReader(System.in);
+public class EIQUEENSv2 {
+
+    static InputReader scanner = new InputReader(System.in);
     static StringBuilder sb = new StringBuilder();
 
-    public static void main(String[] args) {
-        int n = sc.nextInt();
-        long maxPrice = sc.nextLong();
+    public static void main(String[] args) throws IOException {
+        char[][] board = new char[8][8];
 
-        int[] arrOfGift = new int[n];
+        List<int[]> list = new ArrayList<>();
 
-        for (int i = 0; i < n; i++) {
-            arrOfGift[i] = sc.nextInt();
-        }
-        Arrays.sort(arrOfGift);
-        int minDiff = Integer.MAX_VALUE;
-        int maxSum = 0;
-        int right = n - 1;
-        int left = 0;
-        int count = 0;
+        for (int i = 0; i < 8; i++) {
+            String line = scanner.nextLine();
+            board[i] = line.toCharArray();
 
-        while (left < right) {
-            if (arrOfGift[left] + arrOfGift[right] <= maxPrice) {
-                if (maxSum < arrOfGift[left] + arrOfGift[right]) {
-                    maxSum = arrOfGift[left] + arrOfGift[right];
-                    minDiff = Math.abs(arrOfGift[left] - arrOfGift[right]);
-                } else if (maxSum == arrOfGift[left] + arrOfGift[right]
-                        && minDiff > Math.abs(arrOfGift[left] - arrOfGift[right])) {
-                    minDiff = Math.abs(arrOfGift[left] - arrOfGift[right]);
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j] == '*') {
+                    list.add(new int[] { i, j });
                 }
-                // if (arrOfGift[left] + arrOfGift[right] == maxPrice) {
-                //     right--;
-                // }
-                left++;
-                count++;
-            } else {
-                right--;
             }
         }
 
-        if (count == 0) {
-            System.out.println("-1 -1");
-        } else {
-            System.out.println(maxSum + " " + minDiff);
+        if (list.size() != 8) {
+            System.out.println("invalid");
+            return;
         }
+
+        if (checkQueen(list)){
+            System.out.println("valid");
+        }else{
+            System.out.println("invalid");
+        }
+
+    }
+
+    public static boolean checkQueen(List<int[]> queens) {
+
+        for (int i = 0; i < queens.size(); i++) {
+            for (int j = i + 1; j < queens.size(); j++) {
+                int[] queen1 = queens.get(i);
+                int[] queen2 = queens.get(j);
+
+                if (queen1[0] == queen2[0] || queen1[1] == queen2[1]) {
+                    return false;
+                }
+                if (Math.abs(queen1[0] - queen2[0]) == Math.abs(queen1[1] - queen2[1])) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     static class InputReader {

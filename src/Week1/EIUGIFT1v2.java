@@ -1,4 +1,4 @@
-package Week2;
+package Week1;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -8,71 +8,52 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class EI2122Q1ADAM2 {
-    static int res  = Integer.MAX_VALUE;
+public class EIUGIFT1v2 {
 
+    static InputReader sc = new InputReader(System.in);
+    static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) {
-        InputReader sc = new InputReader(System.in);
 
         int n = sc.nextInt();
+
         int m = sc.nextInt();
-        int x = sc.nextInt();
 
-        int[] men = new int[n];
+        double[] arrGift = new double[n];
+
+        double[] arrWrapper = new double[m];
+
         for (int i = 0; i < n; i++) {
-            men[i] = sc.nextInt();
+            arrGift[i] = sc.nextInt();
         }
 
-        int[] women = new int[m];
         for (int i = 0; i < m; i++) {
-            women[i] = sc.nextInt();
-        }
-        findMinimumDifference(n, x, men, women);
-
-        System.out.println(res);
-
-    }
-
-    public static void findMinimumDifference(int n, int x, int[] men, int[] women) {
-        Arrays.sort(men);
-        Arrays.sort(women);
-
-        int left = 0;
-        int right = Math.max(Math.abs(men[n - 1] - women[0]), women[n - 1] - men[0]);
-
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (canMatch(men, women, x, mid)) {
-                right = mid - 1;
-                res = Math.min(res, mid);
-            } else {
-                left = mid + 1;
-            }
+            arrWrapper[i] = sc.nextInt();
         }
 
-    }
+        Arrays.sort(arrGift);
+        Arrays.sort(arrWrapper);
 
-    private static boolean canMatch(int[] men, int[] women, int X, int maxDiff) {
-        int n = men.length;
-        int m = women.length;
-        int pairs = 0;
         int i = 0;
         int j = 0;
+        int res = 0;
 
-        while (i < n && j < m) {
-            if (Math.abs(men[i] - women[j]) <= maxDiff) {
-                pairs++;
+        while (i < arrGift.length && j < arrWrapper.length) {
+            double rate = arrWrapper[j] / arrGift[i];
+            if (rate >= 2 && rate <= 3) {
+                res++;
                 i++;
-                j++;
-            } else if (men[i] > women[j]) {
                 j++;
             } else {
-                i++;
+                if (rate > 3) {
+                    i++;
+                }
+                if (rate < 2) {
+                    j++;
+                }
             }
         }
-
-        return pairs >= X;
+        System.out.println(res);
     }
 
     static class InputReader {

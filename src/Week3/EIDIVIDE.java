@@ -1,79 +1,49 @@
-package Week2;
+package Week3;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class EI2122Q1ADAM2 {
-    static int res  = Integer.MAX_VALUE;
-
+public class EIDIVIDE {
 
     public static void main(String[] args) {
-        InputReader sc = new InputReader(System.in);
-
-        int n = sc.nextInt();
-        int m = sc.nextInt();
-        int x = sc.nextInt();
-
-        int[] men = new int[n];
-        for (int i = 0; i < n; i++) {
-            men[i] = sc.nextInt();
-        }
-
-        int[] women = new int[m];
-        for (int i = 0; i < m; i++) {
-            women[i] = sc.nextInt();
-        }
-        findMinimumDifference(n, x, men, women);
-
-        System.out.println(res);
-
+        InputReader scanner = new InputReader(System.in);
+        long n = scanner.nextLong();
+        long l = scanner.nextLong();
+        long r = scanner.nextLong();
+        long result = countOnes(n, l, r);
+        System.out.println(result);
     }
 
-    public static void findMinimumDifference(int n, int x, int[] men, int[] women) {
-        Arrays.sort(men);
-        Arrays.sort(women);
-
-        int left = 0;
-        int right = Math.max(Math.abs(men[n - 1] - women[0]), women[n - 1] - men[0]);
-
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (canMatch(men, women, x, mid)) {
-                right = mid - 1;
-                res = Math.min(res, mid);
-            } else {
-                left = mid + 1;
-            }
+    public static long getLength(long n) {
+        if (n <= 1) {
+            return 1;
         }
-
+        return 2 * getLength(n / 2) + 1;
     }
 
-    private static boolean canMatch(int[] men, int[] women, int X, int maxDiff) {
-        int n = men.length;
-        int m = women.length;
-        int pairs = 0;
-        int i = 0;
-        int j = 0;
-
-        while (i < n && j < m) {
-            if (Math.abs(men[i] - women[j]) <= maxDiff) {
-                pairs++;
-                i++;
-                j++;
-            } else if (men[i] > women[j]) {
-                j++;
-            } else {
-                i++;
-            }
+    public static long countOnes(long n, long l, long r) {
+        if (n <= 1) {
+            return n == 1 ? Math.min(r - l + 1, 1) : 0;
         }
-
-        return pairs >= X;
+        long midLength = getLength(n / 2);
+        long midValue = n % 2;
+        long total = 0;
+        if (l <= midLength) {
+            total += countOnes(n / 2, l, Math.min(r, midLength));
+        }
+        if (l <= midLength + 1 && r >= midLength + 1) {
+            total += midValue;
+        }
+        if (r > midLength + 1) {
+            total += countOnes(n / 2, Math.max(1, l - midLength - 1), r - midLength - 1);
+        }
+        return total;
     }
+
 
     static class InputReader {
         StringTokenizer tokenizer;
