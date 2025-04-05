@@ -1,67 +1,56 @@
-package Week3;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
-public class EIEQUALSv2 {
+public class EIUMEDARRAY4 {
+    static InputReader scanner = new InputReader(System.in);
     static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) {
-        InputReader sc = new InputReader(System.in);
+        int t = scanner.nextInt();
 
-        int n = sc.nextInt();
-        int k = sc.nextInt();
+        for (int i = 0; i < t; i++) {
+            long n = scanner.nextLong();
+            long a = scanner.nextLong();
+            long p = scanner.nextLong();
+            long k = scanner.nextLong();
 
-        HashMap<Integer, Integer> map = new HashMap<>();
-
-        for (int i = 0; i < n; i++) {
-            int num = sc.nextInt();
-            map.put(num, map.getOrDefault(num, 0) + 1);
+            long kthSmallest = kthSmallest(n, a, p, k);
+            sb.append(kthSmallest).append("\n");
         }
+        System.out.println(sb);
+    }
 
-        for (int i = 0; i < n; i++) {
-            int num = sc.nextInt();
-            map.put(num, map.getOrDefault(num, 0) - 1);
-            if (map.get(num) == 0) {
-                map.remove(num);
+    static long kthSmallest(long n, long a, long p, long k) {
+        long[] arr = new long[(int) n];
+        arr[0] = (a * a) % p;
+        for (int i = 1; i < n; i++) {
+            arr[i] = (arr[i - 1] * a) % p;
+        }
+        long l = 0;
+        long r = p;
+        while (l <= r) {
+            long mid = l + (r - l) / 2;
+            if (count(arr, mid) < k) {
+                l = mid + 1;
+            } else {
+                r = mid - 1;
             }
         }
+        return l;
+    }
 
-        if (map.size() == 0) {
-            System.out.println("YES");
-            return;
-        }
-
-        if (map.size() !=2) {
-            System.out.println("NO");
-            return;
-        }
-
-        Iterator<Entry<Integer, Integer>> i = map.entrySet().iterator();
-
-        Entry<Integer, Integer> first = i.next();
-
-        Entry<Integer, Integer> second = i.next();
-
-        int firstValue = first.getValue();
-        int secondValue = second.getValue();
-
-        if (firstValue == 1 && secondValue == -1 || firstValue == -1 && secondValue == 1) {
-            if(Math.abs(first.getKey() - second.getKey()) <= k){
-                System.out.println("YES");
-                return;
+    static long count(long[] arr, long mid) {
+        long count = 0;
+        for (long e : arr) {
+            if (e <= mid) {
+                count++;
             }
         }
-
-        System.out.println("NO");
-
+        return count;
     }
 
     static class InputReader {

@@ -1,69 +1,53 @@
-package Week3;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
+import java.util.Arrays;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
-public class EIEQUALSv2 {
-    static StringBuilder sb = new StringBuilder();
-
+public class EIUGIFTS {
     public static void main(String[] args) {
         InputReader sc = new InputReader(System.in);
 
         int n = sc.nextInt();
         int k = sc.nextInt();
 
-        HashMap<Integer, Integer> map = new HashMap<>();
+        int[] arr = new int[n];
 
         for (int i = 0; i < n; i++) {
-            int num = sc.nextInt();
-            map.put(num, map.getOrDefault(num, 0) + 1);
+            arr[i] = sc.nextInt();
         }
 
-        for (int i = 0; i < n; i++) {
-            int num = sc.nextInt();
-            map.put(num, map.getOrDefault(num, 0) - 1);
-            if (map.get(num) == 0) {
-                map.remove(num);
+        Arrays.sort(arr);
+
+        int i = 0;
+        int j = n - 1;
+        int maxSum = 0;
+        int minDiff = Integer.MAX_VALUE;
+
+        while (i < j) {
+            int sum = arr[i] + arr[j];
+
+            if (sum > k) {
+                j--;
+            } else {
+                if (sum > maxSum) {
+                    maxSum = sum;
+                    minDiff = Math.abs(arr[i] - arr[j]);
+                } else if (sum == maxSum) {
+                    minDiff = Math.min(minDiff, Math.abs(arr[i] - arr[j]));
+                }
+                i++;
             }
         }
-
-        if (map.size() == 0) {
-            System.out.println("YES");
-            return;
+        if (maxSum == -1) {
+            System.out.println("-1 -1");
+        } else {
+            System.out.println(maxSum + " " + minDiff);
         }
-
-        if (map.size() !=2) {
-            System.out.println("NO");
-            return;
-        }
-
-        Iterator<Entry<Integer, Integer>> i = map.entrySet().iterator();
-
-        Entry<Integer, Integer> first = i.next();
-
-        Entry<Integer, Integer> second = i.next();
-
-        int firstValue = first.getValue();
-        int secondValue = second.getValue();
-
-        if (firstValue == 1 && secondValue == -1 || firstValue == -1 && secondValue == 1) {
-            if(Math.abs(first.getKey() - second.getKey()) <= k){
-                System.out.println("YES");
-                return;
-            }
-        }
-
-        System.out.println("NO");
-
     }
-
     static class InputReader {
         StringTokenizer tokenizer;
         BufferedReader reader;

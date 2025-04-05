@@ -1,67 +1,36 @@
-package Week3;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class EIEQUALSv2 {
+ class EISTORE {
     static StringBuilder sb = new StringBuilder();
+    static InputReader reader = new InputReader(System.in);
 
     public static void main(String[] args) {
-        InputReader sc = new InputReader(System.in);
-
-        int n = sc.nextInt();
-        int k = sc.nextInt();
-
-        HashMap<Integer, Integer> map = new HashMap<>();
+        int n = reader.nextInt();
+        int m = reader.nextInt();
+        int[] arr = new int[n];
 
         for (int i = 0; i < n; i++) {
-            int num = sc.nextInt();
-            map.put(num, map.getOrDefault(num, 0) + 1);
+            arr[i] = reader.nextInt();
         }
+
+        int[] dp = new int[m + 1];
+
+        Arrays.fill(dp, Integer.MAX_VALUE/2);
+
+        dp[0] = 0;
 
         for (int i = 0; i < n; i++) {
-            int num = sc.nextInt();
-            map.put(num, map.getOrDefault(num, 0) - 1);
-            if (map.get(num) == 0) {
-                map.remove(num);
+            for (int j = arr[i]; j <= m; j++) {
+                    dp[j] = Math.min(dp[j], dp[j - arr[i]] + 1);           
             }
         }
-
-        if (map.size() == 0) {
-            System.out.println("YES");
-            return;
-        }
-
-        if (map.size() !=2) {
-            System.out.println("NO");
-            return;
-        }
-
-        Iterator<Entry<Integer, Integer>> i = map.entrySet().iterator();
-
-        Entry<Integer, Integer> first = i.next();
-
-        Entry<Integer, Integer> second = i.next();
-
-        int firstValue = first.getValue();
-        int secondValue = second.getValue();
-
-        if (firstValue == 1 && secondValue == -1 || firstValue == -1 && secondValue == 1) {
-            if(Math.abs(first.getKey() - second.getKey()) <= k){
-                System.out.println("YES");
-                return;
-            }
-        }
-
-        System.out.println("NO");
-
+        System.out.print(dp[m]);
     }
 
     static class InputReader {

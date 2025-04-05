@@ -1,0 +1,211 @@
+Clipboard:
+import java.util.*;
+import java.io.*;
+
+public class Q2 {
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+
+        int years = sc.nextInt();
+        long initial = sc.nextLong();
+        long res = sc.nextLong();
+        int left = 0;
+        int right = 10000000;
+        int middle = (left + right) / 2;
+        while (right - left > 1) {
+            double afterDe = after(years, middle * 1.0 / 10000000, initial);
+            if (afterDe < res) {
+                right = middle;
+            } else {
+                left = middle;
+            }
+            middle = (left + right) / 2;
+        }
+        System.out.println(left / 10000000.0);
+    }
+
+    static double after(int years, double firstRate, long initial) {
+        int i = 0;
+        double afterDe = initial;
+        while (i <= years) {
+            double rate = firstRate - (firstRate * i) / years;
+            afterDe = afterDe * (1 - rate);
+            i++;
+        }
+        return afterDe;
+    }
+
+    static StringBuilder sb = new StringBuilder();
+}
+
+
+Clipboard:
+5 1000000000 500000000
+
+Clipboard:
+import java.util.*;
+import java.io.*;
+
+public class Q2 {
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+
+        int years = sc.nextInt();
+        long initial = sc.nextLong();
+        long res = sc.nextLong();
+        int left = 0;
+        int right = 10000000;
+        int middle = (left + right) / 2;
+        while (right - left > 1) {
+            double afterDe = after(years, middle * 1.0 / 10000000, initial);
+            if (afterDe < res) {
+                right = middle;
+            } else {
+                left = middle;
+            }
+            middle = (left + right) / 2;
+        }
+        System.out.println(left / 10000000.0);
+    }
+
+    static double after(int years, double firstRate, long initial) {
+        int i = 0;
+        double afterDe = initial;
+        while (i <= years) {
+            double rate = firstRate - (firstRate * i) / years;
+            afterDe = afterDe * (1 - rate);
+            i++;
+        }
+        return afterDe;
+    }
+
+    static StringBuilder sb = new StringBuilder();
+}
+
+
+Clipboard:
+5 1000000000 500000000
+
+Clipboard:
+import java.util.*;
+import java.io.*;
+
+public class Q2 {
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+
+        int years = sc.nextInt();
+        long initial = sc.nextLong();
+        long res = sc.nextLong();
+        int left = 0;
+        int right = 10000000;
+        int middle = (left + right) / 2;
+        while (right - left > 1) {
+            double afterDe = after(years, middle * 1.0 / 10000000, initial);
+            if (afterDe < res) {
+                right = middle;
+            } else {
+                left = middle;
+            }
+            middle = (left + right) / 2;
+        }
+        System.out.println(left / 10000000.0);
+    }
+
+    static double after(int years, double firstRate, long initial) {
+        int i = 0;
+        double afterDe = initial;
+        while (i <= years) {
+            double rate = firstRate - (firstRate * i) / years;
+            afterDe = afterDe * (1 - rate);
+            i++;
+        }
+        return afterDe;
+    }
+
+    static StringBuilder sb = new StringBuilder();
+}
+
+
+Clipboard:
+import java.util.*;
+import java.io.*;
+
+public class Q2 {
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+
+        int years = sc.nextInt();
+        long initial = sc.nextLong();
+        long res = sc.nextLong();
+        int left = 0;
+        int right = 10000000;
+        int middle = (left + right) / 2;
+        while (right - left > 1) {
+            double afterDe = after(years, middle * 1.0 / 10000000, initial);
+            if (afterDe < res) {
+                right = middle;
+            } else {
+                left = middle;
+            }
+            middle = (left + right) / 2;
+        }
+        System.out.println(left / 10000000.0);
+    }
+
+    static double after(int years, double firstRate, long initial) {
+        int i = 0;
+        double afterDe = initial;
+        while (i <= years) {
+            double rate = firstRate - (firstRate * i) / years;
+            afterDe = afterDe * (1 - rate);
+        }
+        return afterDe;
+    }
+
+    static StringBuilder sb = new StringBuilder();
+}
+
+
+Clipboard:
+       static long after()
+
+
+Clipboard:
+import java.util.*;
+import java.io.*;
+
+public class Q1 {
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        int max = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        Arrays.sort(arr);
+        int expense = -1;
+        int diff = -1;
+        int l = 0;
+        int r = n - 1;
+        while (r - l >= 1) {
+            int sum = arr[l] + arr[r];
+            if (sum <= max) {
+                if (sum >= expense) {
+                    expense = sum;
+                    diff = arr[r] - arr[l];
+                }
+                l++;
+            } else {
+                r--;
+            }
+        }
+        System.out.println(expense + " " + diff);
+    }
+
+    static StringBuilder sb = new StringBuilder();
+}
+
+

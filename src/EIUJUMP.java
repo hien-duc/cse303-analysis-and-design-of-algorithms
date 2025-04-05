@@ -1,67 +1,56 @@
-package Week3;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
+import java.util.Map;
 import java.util.StringTokenizer;
 
-public class EIEQUALSv2 {
+class EIUJUMP {
     static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) {
         InputReader sc = new InputReader(System.in);
 
         int n = sc.nextInt();
-        int k = sc.nextInt();
 
-        HashMap<Integer, Integer> map = new HashMap<>();
+        int[] colors = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            colors[i] = sc.nextInt();
+        }
+        System.out.println(getMinJumps(n, colors));
 
-        for (int i = 0; i < n; i++) {
-            int num = sc.nextInt();
-            map.put(num, map.getOrDefault(num, 0) + 1);
+    }
+
+    private static int getMinJumps(int n, int[] colors) {
+        if (n == 1) {
+            return 0;
         }
 
-        for (int i = 0; i < n; i++) {
-            int num = sc.nextInt();
-            map.put(num, map.getOrDefault(num, 0) - 1);
-            if (map.get(num) == 0) {
-                map.remove(num);
+        int[] dp = new int[n + 1];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[1] = 0;
+
+        Map<Integer, Integer> last = new HashMap<>(n);
+        last.put(colors[1], 1);
+
+        for (int i = 2; i <= n; i++) {
+            
+            dp[i] = dp[i - 1] + 1; //2
+
+            int curr = colors[i]; //8
+            if (last.get(curr) != null) {
+                int pre = last.get(curr);
+                dp[i] = Math.min(dp[i], dp[pre] + 1);
             }
+
+            last.put(curr, i);
         }
 
-        if (map.size() == 0) {
-            System.out.println("YES");
-            return;
-        }
-
-        if (map.size() !=2) {
-            System.out.println("NO");
-            return;
-        }
-
-        Iterator<Entry<Integer, Integer>> i = map.entrySet().iterator();
-
-        Entry<Integer, Integer> first = i.next();
-
-        Entry<Integer, Integer> second = i.next();
-
-        int firstValue = first.getValue();
-        int secondValue = second.getValue();
-
-        if (firstValue == 1 && secondValue == -1 || firstValue == -1 && secondValue == 1) {
-            if(Math.abs(first.getKey() - second.getKey()) <= k){
-                System.out.println("YES");
-                return;
-            }
-        }
-
-        System.out.println("NO");
-
+        return dp[n];
     }
 
     static class InputReader {

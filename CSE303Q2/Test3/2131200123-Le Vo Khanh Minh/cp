@@ -1,0 +1,1816 @@
+Clipboard:
+import java.util.*;
+import java.io.*;
+
+public class Q3 {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder();
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        for (int i = 0; i < t; i++) {
+            int n = sc.nextInt();
+            int c = sc.nextInt();
+            int[] positions = new int[n];
+            for (int j = 0; j < n; j++) {
+                positions[j] = sc.nextInt();
+            }
+            Arrays.sort(positions);
+            int left = 0;
+            int right = positions[n - 1] - positions[0];
+            int minDis = Integer.MAX_VALUE;
+            while (left < right) {
+                int mid = (left + right) / 2;
+                int count = countBeacons(mid, positions);
+                if (count > c) {
+                    minDis = Math.min(minDis, getMinDis(mid, positions, c));
+                    left = mid + 1;
+                } else {
+                    if (count == c) {
+                        minDis = Math.min(minDis, getMinDis(mid, positions, c));
+                    }
+                    right = mid;
+                }
+            }
+            sb.append(minDis).append("\n");
+        }
+        System.out.println(sb);
+    }
+
+    public static int getMinDis(int gap, int[] positions, int c) {
+        int minDis = 0;
+        int count = 1;
+        int currentIndex = Arrays.binarySearch(positions, gap);
+        if (currentIndex < 0) {
+            currentIndex = ~currentIndex;
+        }
+        if (currentIndex == positions.length) {
+            return count;
+        }
+        int nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        while (nextIndex < positions.length && count < c) {
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+            if (nextIndex == positions.length) {
+                break;
+            }
+            count++;
+            minDis = Math.max(minDis, positions[nextIndex] - positions[currentIndex]);
+
+            currentIndex = nextIndex;
+            nextIndex = Arrays.binarySearch(positions, positions[nextIndex] + gap);
+        }
+        return minDis;
+    }
+
+    public static int countBeacons(int gap, int[] positions) {
+        int count = 1;
+        int currentIndex = Arrays.binarySearch(positions, gap);
+        if (currentIndex < 0) {
+            currentIndex = ~currentIndex;
+        }
+        int nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        while (nextIndex < positions.length) {
+            count++;
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+            if (nextIndex == positions.length) {
+                break;
+            }
+            nextIndex = Arrays.binarySearch(positions, positions[nextIndex] + gap);
+
+        }
+        return count;
+    }
+}
+
+Clipboard:
+ if (nextIndex == positions.length) {
+                break;
+            }
+
+Clipboard:
+import java.util.*;
+import java.io.*;
+
+public class Q3 {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder();
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        for (int i = 0; i < t; i++) {
+            int n = sc.nextInt();
+            int c = sc.nextInt();
+            int[] positions = new int[n];
+            for (int j = 0; j < n; j++) {
+                positions[j] = sc.nextInt();
+            }
+            Arrays.sort(positions);
+            int left = 0;
+            int right = positions[n - 1] - positions[0];
+            int minDis = Integer.MAX_VALUE;
+            while (left < right) {
+                int mid = (left + right) / 2;
+                int count = countBeacons(mid, positions);
+                if (count > c) {
+                    minDis = Math.min(minDis, getMinDis(mid, positions, c));
+                    left = mid + 1;
+                } else {
+                    if (count == c) {
+                        minDis = Math.min(minDis, getMinDis(mid, positions, c));
+                    }
+                    right = mid;
+                }
+            }
+            sb.append(minDis).append("\n");
+        }
+        System.out.println(sb);
+    }
+
+    public static int getMinDis(int gap, int[] positions, int c) {
+        int minDis = 0;
+        int count = 1;
+        int currentIndex = Arrays.binarySearch(positions, gap);
+        if (currentIndex < 0) {
+            currentIndex = ~currentIndex;
+        }
+        if (currentIndex == positions.length) {
+            return count;
+        }
+        int nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        while (nextIndex < positions.length && count < c) {
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+            count++;
+            minDis = Math.max(minDis, positions[nextIndex] - positions[currentIndex]);
+
+            if (nextIndex == positions.length) {
+                break;
+            }
+            currentIndex = nextIndex;
+            nextIndex = Arrays.binarySearch(positions, positions[nextIndex] + gap);
+        }
+        return minDis;
+    }
+
+    public static int countBeacons(int gap, int[] positions) {
+        int count = 1;
+        int currentIndex = Arrays.binarySearch(positions, gap);
+        if (currentIndex < 0) {
+            currentIndex = ~currentIndex;
+        }
+        int nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        while (nextIndex < positions.length) {
+            count++;
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+            if (nextIndex == positions.length) {
+                break;
+            }
+            nextIndex = Arrays.binarySearch(positions, positions[nextIndex] + gap);
+
+        }
+        return count;
+    }
+}
+
+Clipboard:
+ currentIndex = nextIndex;
+
+Clipboard:
+import java.util.*;
+import java.io.*;
+
+public class Q3 {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder();
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        for (int i = 0; i < t; i++) {
+            int n = sc.nextInt();
+            int c = sc.nextInt();
+            int[] positions = new int[n];
+            for (int j = 0; j < n; j++) {
+                positions[j] = sc.nextInt();
+            }
+            Arrays.sort(positions);
+            int left = 0;
+            int right = positions[n - 1] - positions[0];
+            int minDis = Integer.MAX_VALUE;
+            while (left < right) {
+                int mid = (left + right) / 2;
+                int count = countBeacons(mid, positions);
+                if (count > c) {
+                    minDis = Math.min(minDis, getMinDis(mid, positions, c));
+                    left = mid + 1;
+                } else {
+                    if (count == c) {
+                        minDis = Math.min(minDis, getMinDis(mid, positions, c));
+                    }
+                    right = mid;
+                }
+            }
+            sb.append(minDis).append("\n");
+        }
+        System.out.println(sb);
+    }
+
+    public static int getMinDis(int gap, int[] positions, int c) {
+        int minDis = 0;
+        int count = 1;
+        int currentIndex = Arrays.binarySearch(positions, gap);
+        if (currentIndex < 0) {
+            currentIndex = ~currentIndex;
+        }
+        if (currentIndex == positions.length) {
+            return count;
+        }
+        int nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        while (nextIndex < positions.length && count < c) {
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+            count++;
+            minDis = Math.max(minDis, positions[nextIndex] - positions[currentIndex]);
+            currentIndex = nextIndex;
+            if (nextIndex == positions.length) {
+                break;
+            }
+            nextIndex = Arrays.binarySearch(positions, positions[nextIndex] + gap);
+        }
+        return minDis;
+    }
+
+    public static int countBeacons(int gap, int[] positions) {
+        int count = 1;
+        int currentIndex = Arrays.binarySearch(positions, gap);
+        if (currentIndex < 0) {
+            currentIndex = ~currentIndex;
+        }
+        int nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        while (nextIndex < positions.length) {
+            count++;
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+            if (nextIndex == positions.length) {
+                break;
+            }
+            nextIndex = Arrays.binarySearch(positions, positions[nextIndex] + gap);
+
+        }
+        return count;
+    }
+}
+
+Clipboard:
+import java.util.*;
+import java.io.*;
+
+public class Q3 {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder();
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        for (int i = 0; i < t; i++) {
+            int n = sc.nextInt();
+            int c = sc.nextInt();
+            int[] positions = new int[n];
+            for (int j = 0; j < n; j++) {
+                positions[j] = sc.nextInt();
+            }
+            Arrays.sort(positions);
+            int left = 0;
+            int right = positions[n - 1] - positions[0];
+            int minDis = Integer.MAX_VALUE;
+            while (left < right) {
+                int mid = (left + right) / 2;
+                int count = countBeacons(mid, positions);
+                if (count > c) {
+                    minDis = Math.min(minDis, getMinDis(mid, positions, c));
+                    left = mid + 1;
+                } else {
+                    if (count == c) {
+                        minDis = Math.min(minDis, getMinDis(mid, positions, c));
+                    }
+                    right = mid;
+                }
+            }
+            sb.append(minDis).append("\n");
+        }
+        System.out.println(sb);
+    }
+
+    public static int getMinDis(int gap, int[] positions, int c) {
+        int minDis = 0;
+        int count = 1;
+        int currentIndex = Arrays.binarySearch(positions, gap);
+        if (currentIndex < 0) {
+            currentIndex = ~currentIndex;
+        }
+        if (currentIndex == positions.length) {
+            return count;
+        }
+        int nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        while (nextIndex < positions.length && count < c) {
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+            count++;
+            minDis = Math.max(minDis, positions[nextIndex] - positions[currentIndex]);
+            currentIndex = nextIndex;
+            nextIndex = Arrays.binarySearch(positions, positions[nextIndex] + gap);
+        }
+        return minDis;
+    }
+
+    public static int countBeacons(int gap, int[] positions) {
+        int count = 1;
+        int currentIndex = Arrays.binarySearch(positions, gap);
+        if (currentIndex < 0) {
+            currentIndex = ~currentIndex;
+        }
+        int nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        while (nextIndex < positions.length) {
+            count++;
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+            nextIndex = Arrays.binarySearch(positions, positions[nextIndex] + gap);
+
+        }
+        return count;
+    }
+}
+
+Clipboard:
+if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+
+Clipboard:
+import java.util.*;
+import java.io.*;
+
+public class Q3 {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder();
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        for (int i = 0; i < t; i++) {
+            int n = sc.nextInt();
+            int c = sc.nextInt();
+            int[] positions = new int[n];
+            for (int j = 0; j < n; j++) {
+                positions[j] = sc.nextInt();
+            }
+            Arrays.sort(positions);
+            int left = 0;
+            int right = positions[n - 1] - positions[0];
+            int minDis = Integer.MAX_VALUE;
+            while (left < right) {
+                int mid = (left + right) / 2;
+                int count = countBeacons(mid, positions);
+                if (count > c) {
+                    minDis = Math.min(minDis, getMinDis(mid, positions, c));
+                    left = mid + 1;
+                } else {
+                    if (count == c) {
+                        minDis = Math.min(minDis, getMinDis(mid, positions, c));
+                    }
+                    right = mid;
+                }
+            }
+            sb.append(minDis).append("\n");
+        }
+        System.out.println(sb);
+    }
+
+    public static int getMinDis(int gap, int[] positions, int c) {
+        int minDis = 0;
+        int count = 1;
+        int currentIndex = Arrays.binarySearch(positions, gap);
+        if (currentIndex < 0) {
+            currentIndex = ~currentIndex;
+        }
+        if (currentIndex == positions.length) {
+            return count;
+        }
+        int nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        while (nextIndex < positions.length && count < c) {
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+            count++;
+            minDis = Math.max(minDis, positions[nextIndex] - positions[currentIndex]);
+            currentIndex = nextIndex;
+            nextIndex = Arrays.binarySearch(positions, positions[nextIndex] + gap);
+        }
+        return minDis;
+    }
+
+    public static int countBeacons(int gap, int[] positions) {
+        int count = 1;
+        int currentIndex = Arrays.binarySearch(positions, gap);
+        if (currentIndex < 0) {
+            currentIndex = ~currentIndex;
+        }
+        int nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        while (nextIndex < positions.length) {
+            count++;
+            nextIndex = Arrays.binarySearch(positions, positions[nextIndex] + gap);
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+        }
+        return count;
+    }
+}
+
+Clipboard:
+1
+5 3
+1 2 8 4 9
+
+Clipboard:
+ nextIndex = Arrays.binarySearch(positions, positions[nextIndex] + gap);
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+
+Clipboard:
+1
+5 3
+1 2 8 4 9
+
+Clipboard:
+nextIndex = Arrays.binarySearch(positions, positions[nextIndex] + gap);
+
+Clipboard:
+1
+5 3
+1 2 8 4 9
+
+Clipboard:
+import java.util.*;
+import java.io.*;
+
+public class Q3 {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder();
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        for (int i = 0; i < t; i++) {
+            int n = sc.nextInt();
+            int c = sc.nextInt();
+            int[] positions = new int[n];
+            for (int j = 0; j < n; j++) {
+                positions[j] = sc.nextInt();
+            }
+            Arrays.sort(positions);
+            int left = 0;
+            int right = positions[n - 1] - positions[0];
+            int minDis = Integer.MAX_VALUE;
+            while (left < right) {
+                int mid = (left + right) / 2;
+                int count = countBeacons(mid, positions);
+                if (count > c) {
+                    minDis = Math.min(minDis, getMinDis(mid, positions, c));
+                    left = mid + 1;
+                } else {
+                    if (count == c) {
+                        minDis = Math.min(minDis, getMinDis(mid, positions, c));
+                    }
+                    right = mid;
+                }
+            }
+            sb.append(minDis).append("\n");
+        }
+        System.out.println(sb);
+    }
+
+    public static int getMinDis(int gap, int[] positions, int c) {
+        int minDis = 0;
+        int count = 1;
+        int currentIndex = Arrays.binarySearch(positions, gap);
+        if (currentIndex < 0) {
+            currentIndex = ~currentIndex;
+        }
+        if (currentIndex == positions.length) {
+            return count;
+        }
+        int nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        while (nextIndex < positions.length && count < c) {
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+            count++;
+            currentIndex = nextIndex;
+            nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        }
+        return minDis;
+    }
+
+    public static int countBeacons(int gap, int[] positions) {
+        int count = 1;
+        int currentIndex = Arrays.binarySearch(positions, gap);
+        if (currentIndex < 0) {
+            currentIndex = ~currentIndex;
+        }
+        int nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        while (nextIndex < positions.length) {
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+            count++;
+            currentIndex = nextIndex;
+            nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        }
+        return count;
+    }
+}
+
+Clipboard:
+ count++;
+                minDis = Math.max(positions[nextIndex] - positions[currentIndex], minDis);
+
+Clipboard:
+import java.util.*;
+import java.io.*;
+
+public class Q3 {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder();
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        for (int i = 0; i < t; i++) {
+            int n = sc.nextInt();
+            int c = sc.nextInt();
+            int[] positions = new int[n];
+            for (int j = 0; j < n; j++) {
+                positions[j] = sc.nextInt();
+            }
+            Arrays.sort(positions);
+            int left = 0;
+            int right = positions[n - 1] - positions[0];
+            int minDis = Integer.MAX_VALUE;
+            while (left < right) {
+                int mid = (left + right) / 2;
+                int count = countBeacons(mid, positions);
+                if (count > c) {
+                    minDis = Math.min(minDis, getMinDis(mid, positions, c));
+                    left = mid + 1;
+                } else {
+                    if (count == c) {
+                        minDis = Math.min(minDis, getMinDis(mid, positions, c));
+                    }
+                    right = mid;
+                }
+            }
+            sb.append(minDis).append("\n");
+        }
+        System.out.println(sb);
+    }
+
+    public static int getMinDis(int gap, int[] positions, int c) {
+        int minDis = 0;
+        int count = 1;
+        int currentIndex = Arrays.binarySearch(positions, gap);
+        if (currentIndex < 0) {
+            currentIndex = ~currentIndex;
+        }
+        if (currentIndex == positions.length) {
+            return count;
+        }
+        int nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        while (true) {
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+            if (nextIndex == positions.length || count >= c) {
+                break;
+            } else {
+                count++;
+                minDis = Math.max(positions[nextIndex] - positions[currentIndex], minDis);
+
+            }
+            currentIndex = nextIndex;
+            nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        }
+        return minDis;
+    }
+
+    public static int countBeacons(int gap, int[] positions) {
+        int count = 1;
+        int currentIndex = Arrays.binarySearch(positions, gap);
+        if (currentIndex < 0) {
+            currentIndex = ~currentIndex;
+        }
+        if (currentIndex == positions.length) {
+            return count;
+        }
+        int nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        while (true) {
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+            if (nextIndex == positions.length) {
+                break;
+            } else {
+                count++;
+            }
+            currentIndex = nextIndex;
+            nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        }
+        return count;
+    }
+}
+
+Clipboard:
+1
+5 3
+1 2 8 4 9
+
+Clipboard:
+1269969320
+899 547
+101078
+2234147
+5974716
+6154582
+6610774
+7833954
+12699552
+12699693
+12840271
+14712673
+15755002
+19619929
+22387547
+24294870
+24799104
+25339359
+25556189
+26079929
+26091885
+28510886
+29897632
+30407580
+32683515
+34398376
+35565143
+35818932
+37254975
+39303683
+42279217
+42538753
+43491597
+43559177
+44588211
+45101622
+46907000
+47162902
+47302625
+48007810
+51166810
+51612681
+52031909
+52927505
+53715098
+54425269
+56372739
+58293960
+60287950
+62186292
+64686905
+67349967
+68131695
+68702823
+69251123
+69388227
+69704578
+70296755
+70767637
+71161638
+76713277
+77485643
+77623310
+77713372
+78074073
+78549304
+78619948
+79789301
+81815235
+82891755
+87564098
+88256617
+88859931
+90917907
+92183890
+93546248
+96098284
+98527075
+99383077
+99645462
+100327192
+100472779
+102452352
+103447485
+103469771
+104639026
+104800044
+105212457
+106633730
+107876918
+109467428
+111442321
+112081424
+112523597
+112740165
+113717395
+114546463
+114784628
+116770640
+119758888
+119895173
+120822873
+121834675
+123620713
+126732290
+126878888
+127394820
+128420851
+130840146
+131637032
+131647333
+132691390
+133224996
+134777874
+134814097
+134931018
+135800776
+135959731
+136083619
+136533240
+136538586
+136952403
+138408985
+142167860
+143521657
+145757573
+146565900
+148437862
+150433252
+150842615
+151922814
+153002379
+155297013
+155374427
+155445903
+155482195
+155492797
+156826672
+156846155
+157731380
+158618174
+160210276
+160515854
+160839895
+162245195
+162542007
+163970101
+165244060
+169468879
+169786703
+170634297
+171854481
+176194807
+176673480
+179323774
+179939518
+180199155
+180462140
+181354593
+181370204
+183810986
+184068982
+184139275
+184645597
+185321318
+187991780
+188000841
+188020541
+188886297
+191480783
+192036486
+195510800
+196173476
+196642898
+199105957
+201270114
+201386023
+202953597
+204598187
+205248818
+206351956
+207107126
+207143734
+207800966
+208484818
+208790480
+208812704
+209337041
+209848673
+209941731
+210151147
+210378982
+211839641
+211886035
+212630410
+212937347
+213786487
+215386111
+216295337
+217875854
+218364689
+221003329
+226340697
+227559818
+227753803
+227772535
+229743494
+230712648
+232202002
+232318269
+233878972
+236625196
+236824855
+236825545
+237697132
+238258066
+238723987
+245703045
+247484361
+248524443
+248971875
+250125756
+250947627
+253093217
+253562424
+254286443
+256321651
+256909123
+257437844
+257736338
+258013504
+258303216
+259692128
+260035962
+260308656
+260808016
+261438667
+261460047
+262987402
+264089189
+264911783
+265053703
+265502076
+266633000
+268221846
+271072424
+272615540
+273677982
+273713460
+275249401
+275439747
+276164375
+276893222
+277792724
+278180200
+278469441
+279701951
+279741751
+280899607
+282813885
+283453500
+285699961
+285804679
+285962782
+286677893
+286985611
+287339758
+287976787
+288691809
+288727262
+291081533
+292210824
+293818460
+294617508
+295222309
+295650518
+299359841
+301266340
+301333133
+303778028
+305058400
+305690549
+306229568
+306676476
+307000025
+307339950
+307705366
+309119877
+309759980
+310435212
+310779819
+312663919
+313074925
+315193069
+315195444
+315650465
+315910141
+316124677
+318119159
+318528553
+320258421
+322211009
+322703434
+323923713
+324532960
+327309725
+327359244
+327529385
+328729162
+328774507
+329177257
+329666519
+329792591
+333584537
+333756517
+334306089
+335015232
+335264646
+336743759
+338024930
+338695258
+341880199
+342231205
+342583812
+342634861
+343651680
+345014761
+347412423
+348978166
+349042440
+349970196
+350161274
+350233581
+353908091
+355749363
+358039652
+360754082
+361396768
+365093220
+366697111
+366847367
+367918979
+368473638
+369298158
+371840308
+372655622
+372677122
+373742270
+374007579
+374168196
+375144426
+375862978
+376135108
+376816317
+378352662
+378689504
+379072744
+379304919
+379372309
+379888194
+382877384
+382947101
+383552271
+383825955
+385527574
+386283592
+386964008
+387257898
+387594984
+389614917
+389730757
+391035358
+391183229
+391508888
+393210432
+393549856
+394573532
+397474527
+399501553
+399936498
+400067956
+402908271
+403362886
+405451841
+409151880
+409649503
+410187576
+411322875
+414190338
+416934038
+417202909
+417556530
+419051086
+419497194
+419685551
+419770861
+420086613
+420530376
+421233353
+424406355
+424603378
+425433758
+425672371
+426930275
+427296411
+428220539
+428360143
+429507227
+430267094
+430721420
+431453274
+433135373
+433206548
+433261440
+434375588
+435196104
+438841182
+440286698
+442906965
+444915888
+445385968
+446224964
+447724465
+448717619
+448808629
+451555228
+452113423
+453066350
+453621349
+454928471
+457326991
+458776943
+460596320
+460731147
+462134758
+464090927
+465265757
+468194149
+468453590
+468841555
+469187138
+469703680
+469724886
+469938126
+469938562
+470843540
+471272589
+473710689
+473875675
+474716664
+479212614
+480250430
+481268038
+482024186
+483736080
+486147307
+487325323
+487541384
+488866100
+490650578
+493244278
+498319850
+500547585
+501427755
+501806503
+502697394
+502891277
+505126067
+505391427
+506697682
+507727715
+508139911
+508308269
+508370081
+509568530
+510066509
+511354711
+514348135
+514687096
+515351982
+516731207
+516889623
+518534151
+519134154
+519649974
+521471471
+524059663
+524551910
+525187752
+525476252
+527475245
+527814040
+528849917
+529139009
+529453625
+529495629
+531529108
+534441689
+534851370
+536260661
+536300770
+536406792
+537230518
+538281516
+538491187
+539381237
+543960833
+544468484
+544751324
+547155984
+548234362
+549383173
+550409768
+552112760
+552702649
+554323012
+554989394
+555035673
+555810617
+556614190
+557812054
+561810162
+562638476
+563293818
+565280377
+565962192
+566133073
+566371257
+572870666
+573774839
+576575959
+578637639
+581080743
+582888631
+583972981
+584805912
+586382110
+586564770
+587862040
+589087894
+591092356
+591789225
+593635619
+594651881
+594693086
+596071266
+596393906
+596652895
+596678036
+596680087
+596812555
+597536711
+598008482
+598541307
+598709726
+599499101
+599593392
+601135514
+604142566
+605683162
+605830526
+605951425
+606293883
+607294778
+611371017
+614754844
+615241530
+615278466
+615371110
+615472290
+616942780
+617022495
+617457517
+617850061
+617987815
+620699830
+624368767
+625152690
+626971531
+627470497
+627602157
+627607384
+627806447
+628282067
+628462230
+628777725
+629820600
+631068013
+631750740
+636321613
+637436173
+642553784
+645365138
+646415129
+647635757
+651421235
+651632256
+651783982
+652810622
+654239790
+654705127
+654839462
+655636736
+656881824
+659574318
+662711411
+666235992
+666709347
+668461110
+671813433
+672118810
+673117012
+674112335
+674277391
+674776015
+675136049
+675441428
+675967425
+676803272
+679450834
+683648783
+684309404
+684462067
+685115508
+686161279
+686827636
+686979296
+687130136
+687496504
+687549769
+687961946
+688988776
+689078120
+689170204
+690179960
+690642696
+691017540
+691436651
+691724246
+693920666
+693962119
+694217966
+694258066
+698692279
+701160031
+701639320
+703509248
+703630323
+706117298
+706513340
+706754560
+707366717
+708298481
+708996666
+709771053
+711966822
+714358061
+714909349
+715285434
+716521913
+717167832
+717239889
+717996563
+719733244
+719929547
+720781163
+721090149
+721308218
+722891558
+723859073
+725511963
+725576978
+725612534
+725795977
+725808824
+726770458
+728012260
+728479407
+728589041
+729513551
+730908022
+732213121
+732323609
+732656472
+735126073
+736798219
+737869503
+739920088
+741595594
+742859953
+744511771
+744898692
+744957691
+745422645
+746328850
+746826280
+747338187
+747412172
+748385032
+757699605
+758785047
+762291534
+762490893
+763707739
+765353365
+768407387
+768644184
+768975390
+770705565
+772660418
+775334638
+775502728
+776780770
+776953145
+777507542
+778266462
+779564803
+779788640
+780542941
+781018771
+782702954
+783710281
+787634286
+788011252
+788867331
+789124544
+789148582
+789272434
+791916230
+792671076
+793151988
+793694060
+794301247
+796385414
+797057347
+797697905
+799167301
+799433974
+799792481
+801069173
+801403564
+801406084
+803174213
+803668673
+804476792
+804798167
+805795578
+810263525
+810650156
+811703448
+812957859
+812981168
+814268001
+817006716
+817602830
+817927188
+820191085
+820742189
+822279155
+822315893
+824639439
+824822421
+825865912
+826866717
+827119231
+827243661
+829387582
+830388029
+831672629
+832000242
+835121049
+836118119
+836619557
+841191108
+843510894
+843903042
+844107331
+845005385
+845839567
+848715945
+848946528
+849058077
+850575192
+851275019
+851660843
+851681731
+853427059
+853475400
+854614802
+856096332
+856544426
+860017491
+860622078
+863198226
+863698532
+863896910
+864808420
+865694104
+866199997
+866245792
+868923452
+870652531
+871297909
+874209080
+875419463
+876139924
+877179854
+877491895
+877515021
+878375938
+878996371
+879264753
+883556441
+884328284
+884438948
+886001568
+887764608
+887890763
+888098206
+888365984
+888571561
+889247357
+890207005
+890781365
+894852768
+896346117
+902304071
+902834721
+903991933
+904695703
+906310202
+908721477
+908839060
+909924242
+910296539
+910394166
+911204806
+911647129
+913225426
+916134190
+916251129
+919099611
+919177804
+919337200
+923619126
+924164439
+924324384
+926404824
+926970271
+927078659
+927127456
+928578654
+933646933
+934352586
+934370915
+935020956
+935224855
+936256303
+937930119
+939928016
+940230687
+940955394
+942037696
+942955267
+943003431
+943250979
+944710870
+949185261
+951988860
+956184749
+956994457
+960163856
+960556535
+964869594
+966668596
+967334985
+967572013
+970566803
+972734462
+972746660
+974164268
+977570044
+977616201
+980789818
+981041972
+981356415
+981454009
+983966851
+984858199
+986692070
+986842972
+987006169
+988068507
+989427518
+989881922
+991722964
+991837176
+993717456
+994286797
+994824343
+998280810
+
+Clipboard:
+1
+5 3
+1 2 8 4 9
+
+Clipboard:
+import java.util.*;
+import java.io.*;
+
+public class Q3 {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder();
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        for (int i = 0; i < t; i++) {
+            int n = sc.nextInt();
+            int c = sc.nextInt();
+            int[] positions = new int[n];
+            for (int j = 0; j < n; j++) {
+                positions[j] = sc.nextInt();
+            }
+            Arrays.sort(positions);
+            int left = 0;
+            int right = positions[n - 1] - positions[0];
+            int minDis = Integer.MAX_VALUE;
+            while (left < right) {
+                int mid = (left + right) / 2;
+                int count = countBeacons(mid, positions);
+                if (count > c) {
+                    minDis = Math.min(minDis, getMinDis(mid, positions, c));
+                    left = mid + 1;
+                } else {
+                    if (count == c) {
+                        minDis = Math.min(minDis, getMinDis(mid, positions, c));
+                    }
+                    right = mid;
+                }
+            }
+            sb.append(minDis).append("\n");
+        }
+        System.out.println(sb);
+    }
+
+    public static int getMinDis(int gap, int[] positions, int c) {
+        int minDis = 0;
+        int count = 1;
+        int currentIndex = Arrays.binarySearch(positions, gap);
+        if (currentIndex < 0) {
+            currentIndex = ~currentIndex;
+        }
+        int nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        while (true) {
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+            if (nextIndex == currentIndex || nextIndex == positions.length || count >= c) {
+                break;
+            } else {
+                count++;
+                minDis = Math.max(positions[nextIndex] - positions[currentIndex], minDis);
+
+            }
+            currentIndex = nextIndex;
+            nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        }
+        return minDis;
+    }
+
+    public static int countBeacons(int gap, int[] positions) {
+        int count = 1;
+        int currentIndex = Arrays.binarySearch(positions, gap);
+        if (currentIndex < 0) {
+            currentIndex = ~currentIndex;
+        }
+        int nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        while (true) {
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+            if (nextIndex == currentIndex || nextIndex == positions.length) {
+                break;
+            } else {
+                count++;
+            }
+            currentIndex = nextIndex;
+            nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        }
+        return count;
+    }
+}
+
+Clipboard:
+import java.util.*;
+import java.io.*;
+
+public class Q3 {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder();
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        for (int i = 0; i < t; i++) {
+            int n = sc.nextInt();
+            int c = sc.nextInt();
+            int[] positions = new int[n];
+            for (int j = 0; j < n; j++) {
+                positions[j] = sc.nextInt();
+            }
+            System.out.println("Hello ");
+            Arrays.sort(positions);
+            int left = 0;
+            int right = positions[n - 1] - positions[0];
+            int minDis = Integer.MAX_VALUE;
+            while (left < right) {
+                int mid = (left + right) / 2;
+                int count = countBeacons(mid, positions);
+                if (count > c) {
+                    minDis = Math.min(minDis, getMinDis(mid, positions, c));
+                    left = mid + 1;
+                } else {
+                    if (count == c) {
+                        minDis = Math.min(minDis, getMinDis(mid, positions, c));
+                    }
+                    right = mid;
+                }
+            }
+            sb.append(minDis).append("\n");
+        }
+        System.out.println(sb);
+    }
+
+    public static int getMinDis(int gap, int[] positions, int c) {
+        int minDis = 0;
+        int count = 1;
+        int currentIndex = Arrays.binarySearch(positions, gap);
+        if (currentIndex < 0) {
+            currentIndex = ~currentIndex;
+        }
+        int nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        while (true) {
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+            if (nextIndex == currentIndex || nextIndex == positions.length || count >= c) {
+                break;
+            } else {
+                count++;
+                minDis = Math.max(positions[nextIndex] - positions[currentIndex], minDis);
+
+            }
+            currentIndex = nextIndex;
+            nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        }
+        return minDis;
+    }
+
+    public static int countBeacons(int gap, int[] positions) {
+        int count = 1;
+        int currentIndex = Arrays.binarySearch(positions, gap);
+        if (currentIndex < 0) {
+            currentIndex = ~currentIndex;
+        }
+        int nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        while (true) {
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+            if (nextIndex == currentIndex || nextIndex == positions.length) {
+                break;
+            } else {
+                count++;
+            }
+            currentIndex = nextIndex;
+            nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        }
+        return count;
+    }
+}
+
+Clipboard:
+import java.util.*;
+import java.io.*;
+
+public class Q3 {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder();
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        for (int i = 0; i < t; i++) {
+            int n = sc.nextInt();
+            int c = sc.nextInt();
+            int[] positions = new int[n];
+            for (int j = 0; j < n; j++) {
+                positions[j] = sc.nextInt();
+            }
+            Arrays.sort(positions);
+            int left = 0;
+            int right = positions[n - 1] - positions[0];
+            int minDis = Integer.MAX_VALUE;
+            while (left < right) {
+                int mid = (left + right) / 2;
+                int count = countBeacons(mid, positions);
+                if (count > c) {
+                    minDis = Math.min(minDis, getMinDis(mid, positions, c));
+                    left = mid + 1;
+                } else {
+                    if (count == c) {
+                        minDis = Math.min(minDis, getMinDis(mid, positions, c));
+                    }
+                    right = mid;
+                }
+            }
+            sb.append(minDis).append("\n");
+        }
+        System.out.println(sb);
+    }
+
+    public static int getMinDis(int gap, int[] positions, int c) {
+        int minDis = 0;
+        int count = 1;
+        int currentIndex = Arrays.binarySearch(positions, gap);
+        if (currentIndex < 0) {
+            currentIndex = ~currentIndex;
+        }
+        int nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        while (true) {
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+            if (nextIndex == currentIndex || nextIndex == positions.length || count >= c) {
+                break;
+            } else {
+                count++;
+                minDis = Math.max(positions[nextIndex] - positions[currentIndex], minDis);
+
+            }
+            currentIndex = nextIndex;
+            nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        }
+        return minDis;
+    }
+
+    public static int countBeacons(int gap, int[] positions) {
+        int count = 1;
+        int currentIndex = Arrays.binarySearch(positions, gap);
+        if (currentIndex < 0) {
+            currentIndex = ~currentIndex;
+        }
+        int nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        while (true) {
+            if (nextIndex < 0) {
+                nextIndex = ~nextIndex;
+            }
+            if (nextIndex == currentIndex || nextIndex == positions.length) {
+                break;
+            } else {
+                count++;
+            }
+            currentIndex = nextIndex;
+            nextIndex = Arrays.binarySearch(positions, positions[currentIndex] + gap);
+        }
+        return count;
+    }
+}
+
+Clipboard:
+1
+5 3
+1 2 8 4 9
+
+Clipboard:
+ minDis = Math.min(minDis, getMinDis(mid, positions, c));
+
+Clipboard:
+1
+5 3
+1 2 8 4 9
+

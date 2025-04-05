@@ -1,67 +1,30 @@
-package Week3;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
-public class EIEQUALSv2 {
-    static StringBuilder sb = new StringBuilder();
-
+public class EIBORE {
     public static void main(String[] args) {
-        InputReader sc = new InputReader(System.in);
+        InputReader scanner = new InputReader(System.in);
+        int n = scanner.nextInt();
 
-        int n = sc.nextInt();
-        int k = sc.nextInt();
-
-        HashMap<Integer, Integer> map = new HashMap<>();
-
+        int[] count = new int[100001];
         for (int i = 0; i < n; i++) {
-            int num = sc.nextInt();
-            map.put(num, map.getOrDefault(num, 0) + 1);
+            int num = scanner.nextInt();
+            count[num]++;
         }
 
-        for (int i = 0; i < n; i++) {
-            int num = sc.nextInt();
-            map.put(num, map.getOrDefault(num, 0) - 1);
-            if (map.get(num) == 0) {
-                map.remove(num);
-            }
+        long[] dp = new long[100001];
+        dp[0] = 0;
+        dp[1] = (long) 1 * count[1];// 2 4 6
+
+        for (int i = 2; i <= 100000; i++) {
+            dp[i] = Math.max(dp[i - 1], dp[i - 2] + (long) i * count[i]);
         }
 
-        if (map.size() == 0) {
-            System.out.println("YES");
-            return;
-        }
-
-        if (map.size() !=2) {
-            System.out.println("NO");
-            return;
-        }
-
-        Iterator<Entry<Integer, Integer>> i = map.entrySet().iterator();
-
-        Entry<Integer, Integer> first = i.next();
-
-        Entry<Integer, Integer> second = i.next();
-
-        int firstValue = first.getValue();
-        int secondValue = second.getValue();
-
-        if (firstValue == 1 && secondValue == -1 || firstValue == -1 && secondValue == 1) {
-            if(Math.abs(first.getKey() - second.getKey()) <= k){
-                System.out.println("YES");
-                return;
-            }
-        }
-
-        System.out.println("NO");
-
+        System.out.print(dp[100000]);
     }
 
     static class InputReader {
@@ -110,5 +73,6 @@ public class EIEQUALSv2 {
         public long nextLong() {
             return Long.parseLong(next());
         }
+
     }
 }
